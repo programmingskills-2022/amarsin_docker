@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginContext } from "@/app/contexts/LoginContext";
+import { GeneralContext } from "@/app/contexts/GeneralContext";
 import ThemeToggler from "@/app/general/ThemeToggler";
 import IconlyArrowDown from "@/app/svg/IconlyArrowDown";
 import IconlyUser from "@/app/svg/IconlyUser";
@@ -16,7 +16,7 @@ import IconlyArrowUp from "@/app/svg/IconlyArrowUp";
 
 export default function Header() {
   const { login, showProfileMenu, setShowProfileMenu, toggleProfileMenu } =
-    useContext(LoginContext);
+    useContext(GeneralContext);
 
   if (login.Data === undefined) return undefined;
 

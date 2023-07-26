@@ -9,7 +9,7 @@ import { getLoginByParams } from "@/lib/logins";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useState } from "react";
-import { LoginContext } from "../../contexts/LoginContext";
+import { GeneralContext } from "../../contexts/GeneralContext";
 import IconlyUser from "../../svg/IconlyUser";
 import IconlyLock from "../../svg/IconlyLock";
 import Button from "../../ui/Button";
@@ -20,7 +20,7 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const { setLoginInfos } = useContext(LoginContext);
+  const { setLoginInfos, apiPoint } = useContext(GeneralContext);
 
   const submitLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function LoginForm() {
       return;
     }
 
-    const res: Promise<Login> = getLoginByParams(userName, password);
+    const res: Promise<Login> = getLoginByParams(userName, password, apiPoint);
 
     const loginData = (await res).Meta;
 

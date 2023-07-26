@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { RootState } from "./index";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { LoginContext } from "@/app/contexts/LoginContext";
+import { GeneralContext } from "@/app/contexts/GeneralContext";
 
 export interface MenuState {
   loading: boolean;
@@ -14,8 +14,8 @@ const initialState: MenuState = {
   error: undefined,
 };
 export const fetchMenu = createAsyncThunk("menu/fetchMenu", () => {
-  const { login, userName } = useContext(LoginContext);
-  const MENU_URL = `http://ps.dotis.ir/api/userapi/UserPermList?UsrId=${login.Data.result.userId}`;
+  const { login, apiPoint, userName } = useContext(GeneralContext);
+  const MENU_URL = `${apiPoint}/userapi/UserPermList?UsrId=${login.Data.result.userId}`;
 
   const res = fetch(MENU_URL)
     .then((data) => data.json())
@@ -97,7 +97,10 @@ export function createMenu(menuItems: MenuResult[], parentId = 0): MenuItem[] {
   const result: MenuItem[] = [];
 
   for (let item of menuItems) {
-    const item1: MenuItem = { menuResult: item, children: undefined };
+    const item1: MenuItem = {
+      menuResult: item,
+      children: undefined,
+    };
     if (item1.menuResult.ParentId === parentId) {
       const children = createMenu(menuItems, item1.menuResult.Id);
       if (children.length > 0) {

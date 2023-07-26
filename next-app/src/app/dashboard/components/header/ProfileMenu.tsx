@@ -1,4 +1,4 @@
-import { LoginContext } from "@/app/contexts/LoginContext";
+import { GeneralContext } from "@/app/contexts/GeneralContext";
 import IconlyExit from "@/app/svg/IconlyExit";
 import IconlyProfile from "@/app/svg/IconlyProfile";
 import DropdownMenu from "@/app/ui/DropdownMenu";
@@ -6,7 +6,7 @@ import DropdownMenuItem from "@/app/ui/DropdownMenuItem";
 import { LegacyRef, useContext, useRef } from "react";
 
 export default function ProfileMenu() {
-  const { login, setShowProfileMenu } = useContext(LoginContext);
+  const { login, setShowProfileMenu } = useContext(GeneralContext);
 
   if (login.Data === undefined) return undefined;
 

@@ -3,10 +3,10 @@
 import { useContext } from "react";
 import Logo from "./header/Logo";
 import Nav from "./sidebar/Nav";
-import { LoginContext } from "@/app/contexts/LoginContext";
+import { GeneralContext } from "@/app/contexts/GeneralContext";
 
 export default function Sidebar() {
-  const { showMenu, setShowMenu } = useContext(LoginContext);
+  const { showMenu, setShowMenu } = useContext(GeneralContext);
 
   return (
     <aside

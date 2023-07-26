@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginContext } from "@/app/contexts/LoginContext";
+import { GeneralContext } from "@/app/contexts/GeneralContext";
 import Button from "@/app/ui/Button";
 import Card from "@/app/ui/Card";
 import Link from "next/link";
@@ -14,7 +14,7 @@ type Params = {
 };
 
 export default function page({ params: { userId } }: Params) {
-  const { userName, password, login } = useContext(LoginContext);
+  const { userName, password, login } = useContext(GeneralContext);
 
   const userInfo = login.Data?.result;
 

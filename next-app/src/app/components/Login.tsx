@@ -2,7 +2,7 @@
 import Image from "next/image";
 import LoginHeader from "./login/LoginHeader";
 import LoginForm from "./login/LoginForm";
-import { useGeneralContext } from "@/app/contexts/LoginContext";
+import { useGeneralContext } from "@/app/contexts/GeneralContext";
 
 export default function Login() {
   return (

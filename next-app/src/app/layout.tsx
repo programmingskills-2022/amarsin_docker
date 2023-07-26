@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Metadata } from "next";
-import { DataProvider } from "@/app/contexts/LoginContext";
+import { DataProvider } from "@/app/contexts/GeneralContext";
 import MyThemeProvider from "@/app/general/MyThemeProvider";
 import { ReduxProvider } from "@/features";
 

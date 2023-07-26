@@ -15,15 +15,16 @@ type ContextType = {
   login: Login;
   showProfileMenu: boolean;
   showMenu: boolean;
+  apiPoint: string;
+  mobileNavsidebar: boolean;
   setShowProfileMenu: Dispatch<SetStateAction<boolean>>;
   setShowMenu: Dispatch<SetStateAction<boolean>>;
   setLoginInfos: (userName: string, password: string) => {};
   toggleProfileMenu: () => void;
-  mobileNavsidebar: boolean;
   setMobileNavsidebar: Dispatch<SetStateAction<boolean>>;
 };
 
-export const LoginContext = createContext<ContextType>({} as ContextType);
+export const GeneralContext = createContext<ContextType>({} as ContextType);
 
 interface ProviderProps {
   children: ReactNode;
@@ -36,9 +37,10 @@ export const DataProvider = ({ children }: ProviderProps) => {
   const [showMenu, setShowMenu] = useState(false);
   const [mobileNavsidebar, setMobileNavsidebar] = useState(false);
   const [login, setLogin] = useState({} as Login);
+  const apiPoint = "http://ps.dotis.ir/api";
 
   const setLoginInfos = async (userName: string, password: string) => {
-    const res: Promise<Login> = getLoginByParams(userName, password);
+    const res: Promise<Login> = getLoginByParams(userName, password, apiPoint);
 
     const loginData = await res;
 
@@ -55,25 +57,26 @@ export const DataProvider = ({ children }: ProviderProps) => {
     userName,
     password,
     login,
-    setLoginInfos,
-    toggleProfileMenu,
     showProfileMenu,
     showMenu,
+    mobileNavsidebar,
+    apiPoint,
+    setLoginInfos,
+    toggleProfileMenu,
     setShowProfileMenu,
     setShowMenu,
-    mobileNavsidebar,
     setMobileNavsidebar,
   };
 
   return (
-    <LoginContext.Provider value={contextValue}>
+    <GeneralContext.Provider value={contextValue}>
       {children}
-    </LoginContext.Provider>
+    </GeneralContext.Provider>
   );
 };
 
 export function useGeneralContext() {
-  const context = useContext(LoginContext);
+  const context = useContext(GeneralContext);
 
   if (!context) throw new Error("خطا !");
 
