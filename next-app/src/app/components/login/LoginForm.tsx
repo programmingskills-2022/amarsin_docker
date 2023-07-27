@@ -27,7 +27,6 @@ export default function LoginForm() {
     //throw new Error("dsjdhsj");
 
     if (!userName.length || !password.length) {
-      console.log(error, userName, password);
       setError("نام کاربر یا رمز عبور وارد نشده است.");
       return;
     }
@@ -50,6 +49,7 @@ export default function LoginForm() {
     setError((prev) => "");
 
     setLoginInfos(userName, password);
+
     router.push("/dashboard");
   };
 

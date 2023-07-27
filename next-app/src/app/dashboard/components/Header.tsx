@@ -17,6 +17,7 @@ import IconlyArrowUp from "@/app/svg/IconlyArrowUp";
 export default function Header() {
   const { login, showProfileMenu, setShowProfileMenu, toggleProfileMenu } =
     useContext(GeneralContext);
+  console.log(login);
 
   if (login.Data === undefined) return undefined;
 

@@ -19,8 +19,6 @@ interface ReduxProviderProps {
   children: ReactNode;
 }
 export function ReduxProvider({ children }: ReduxProviderProps) {
-  const { login } = useContext(GeneralContext);
-  console.log(login?.Data?.result.userId);
   store.dispatch(fetchMenu());
   return <Provider store={store}>{children}</Provider>;
 }
