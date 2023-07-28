@@ -1,6 +1,8 @@
 "use client";
 
 import { GeneralContext } from "@/app/contexts/GeneralContext";
+import { useAppSelector } from "@/app/redux/hooks";
+import { selectLoginData } from "@/app/redux/login";
 import Button from "@/app/ui/Button";
 import Card from "@/app/ui/Card";
 import Link from "next/link";
@@ -14,8 +16,7 @@ type Params = {
 };
 
 export default function page({ params: { userId } }: Params) {
-  const { userName, password, login } = useContext(GeneralContext);
-
+  const login = useAppSelector(selectLoginData);
   const userInfo = login.Data?.result;
 
   if (!userInfo) return notFound();

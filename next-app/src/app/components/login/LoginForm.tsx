@@ -5,22 +5,24 @@ icons are from https://unpkg.com/browse/@heroicons/react@2.0.18/24/outline/
 
 "use client";
 import Input from "@/app/ui/Input";
-import { getLoginByParams } from "@/lib/logins";
+import { getLoginByParams } from "@/app/lib/logins";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useContext, useState } from "react";
 import { GeneralContext } from "../../contexts/GeneralContext";
 import IconlyUser from "../../svg/IconlyUser";
 import IconlyLock from "../../svg/IconlyLock";
-import Button from "../../ui/Button";
+import { useAppDispatch } from "@/app/redux/hooks";
+import { saveLoginData } from "@/app/redux/login";
 
 export default function LoginForm() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  const { setLoginInfos, apiPoint } = useContext(GeneralContext);
+  const { apiPoint, setLoginInfos } = useContext(GeneralContext);
 
   const submitLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,20 +35,22 @@ export default function LoginForm() {
 
     const res: Promise<Login> = getLoginByParams(userName, password, apiPoint);
 
-    const loginData = (await res).Meta;
+    const login = await res;
+    const loginMeta = login.Meta;
 
-    if (loginData === undefined) {
+    if (loginMeta === undefined) {
       setError("سرور پاسخ نمی دهد.");
       return;
     }
 
-    if (loginData.errorCode !== -1) {
-      console.log(loginData.message);
-      setError((prev) => loginData.message);
+    if (loginMeta.errorCode !== -1) {
+      setError((prev) => loginMeta.message);
       return;
     }
 
     setError((prev) => "");
+
+    dispatch(saveLoginData(login));
 
     setLoginInfos(userName, password);
 

@@ -1,14 +1,20 @@
 import { GeneralContext } from "@/app/contexts/GeneralContext";
+import { persistor } from "@/app/redux";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import { selectLoginData } from "@/app/redux/login";
 import IconlyExit from "@/app/svg/IconlyExit";
 import IconlyProfile from "@/app/svg/IconlyProfile";
 import DropdownMenu from "@/app/ui/DropdownMenu";
 import DropdownMenuItem from "@/app/ui/DropdownMenuItem";
+import { useRouter } from "next/navigation";
 import { LegacyRef, useContext, useRef } from "react";
 
 export default function ProfileMenu() {
-  const { login, setShowProfileMenu } = useContext(GeneralContext);
+  const router = useRouter();
+  const { setShowProfileMenu } = useContext(GeneralContext);
 
-  if (login.Data === undefined) return undefined;
+  const login = useAppSelector(selectLoginData);
+  if (login?.Data === undefined) return undefined;
 
   const { FName, LName, userId } = login.Data?.result;
   return (
@@ -30,6 +36,13 @@ export default function ProfileMenu() {
           href="/"
           onClick={() => {
             setShowProfileMenu(false);
+            window.localStorage.clear();
+            // persist redux delete
+            // persistor.pause();
+            // persistor.flush().then(() => {
+            //   return persistor.purge();
+            // });
+            //persistor.purge();
           }}
         />
       </DropdownMenu>

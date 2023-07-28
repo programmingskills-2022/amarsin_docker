@@ -13,13 +13,20 @@ import { notFound } from "next/navigation";
 import Logo from "./header/Logo";
 import ProfileMenu from "./header/ProfileMenu";
 import IconlyArrowUp from "@/app/svg/IconlyArrowUp";
+import { selectLoginData } from "@/app/redux/login";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
+import { fetchMenu, selectMenuAll } from "@/app/redux/menu";
 
 export default function Header() {
-  const { login, showProfileMenu, setShowProfileMenu, toggleProfileMenu } =
+  let { login, showProfileMenu, setShowProfileMenu, toggleProfileMenu } =
     useContext(GeneralContext);
-  console.log(login);
 
-  if (login.Data === undefined) return undefined;
+  //for refresh page
+  if (!login.Data) {
+    login = JSON.parse(window.localStorage.getItem("login") as string);
+  }
+
+  if (login?.Data === undefined) return undefined;
 
   const { FName, LName, userId } = login.Data?.result;
   const dropdown = useRef<HTMLDivElement>(null);

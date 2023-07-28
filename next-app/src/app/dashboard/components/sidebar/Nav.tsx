@@ -1,8 +1,8 @@
-import { createMenu, selectMenuAll } from "@/features/menu";
-import { useAppSelector } from "@/features/hooks";
 import React, { useEffect, useState } from "react";
 import TreeNode from "./TreeNode";
 import IconlyClose from "@/app/svg/IconlyClose";
+import { useAppSelector } from "@/app/redux/hooks";
+import { createMenu, selectMenuAll } from "@/app/redux/menu";
 
 export default function Nav() {
   const menuCurrentUser = useAppSelector(selectMenuAll);
@@ -11,8 +11,8 @@ export default function Nav() {
   const [menu, setMenu] = useState<MenuItem[]>([]);
 
   useEffect(() => {
-    setMenu(createMenu(menuCurrentUser));
-  }, []);
+    setMenu(createMenu(menuCurrentUser.menu));
+  }, [menuCurrentUser]);
 
   const searchMenuHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);

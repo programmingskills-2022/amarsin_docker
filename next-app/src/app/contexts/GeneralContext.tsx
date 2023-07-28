@@ -7,7 +7,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { getLoginByParams } from "../../lib/logins";
+import { getLoginByParams } from "../lib/logins";
 
 type ContextType = {
   userName: string;
@@ -45,6 +45,7 @@ export const DataProvider = ({ children }: ProviderProps) => {
     const loginData = await res;
 
     setLogin(loginData);
+    window.localStorage.setItem("login", JSON.stringify(loginData));
     setUserName(userName);
     setPassword(password);
   };

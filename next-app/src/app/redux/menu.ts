@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { RootState } from "./index";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GeneralContext } from "@/app/contexts/GeneralContext";
+import { useAppSelector } from "./hooks";
+import { selectLoginData } from "./login";
+import { PURGE } from "redux-persist";
 
 export interface MenuState {
   loading: boolean;
@@ -13,14 +16,19 @@ const initialState: MenuState = {
   menu: [],
   error: undefined,
 };
-export const fetchMenu = createAsyncThunk("menu/fetchMenu", () => {
-  const { login, apiPoint, userName } = useContext(GeneralContext);
+export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
+  let { apiPoint, login } = useContext(GeneralContext);
+
+  if (JSON.parse(window.localStorage.getItem("login") as string))
+    login = JSON.parse(window.localStorage.getItem("login") as string);
+
   const MENU_URL = `${apiPoint}/userapi/UserPermList?UsrId=${login.Data.result.userId}`;
 
   const res = fetch(MENU_URL)
     .then((data) => data.json())
     .then((result) => result.Data.result);
 
+  const result = await res;
   return res;
 });
 
@@ -43,21 +51,28 @@ const menuSlice = createSlice({
       state.loading = false;
       state.menu = [];
       state.error = action.error.message;
-    });
+    }),
+      builder.addCase(PURGE, () => {
+        return initialState;
+      });
   },
   reducers: {},
 });
-export const selectMenuAll = (state: RootState) => state.menu.menu;
+export const selectMenuAll = (state: RootState) => state.persistedReducer.menu;
 
 export const selectMenuParent = (state: RootState) =>
-  state.menu.menu.filter((menuItem) => menuItem.ParentId === 0);
+  state.persistedReducer.menu.menu.filter(
+    (menuItem) => menuItem.ParentId === 0
+  );
 
 export const getMenuParents = (state: RootState, menuId: number) => {
   const menuParents: MenuResult[] = [];
   let temp: MenuResult;
   let id = menuId;
   while (id !== 0) {
-    temp = state.menu.menu.find((menuItem) => menuItem.Id === id) as MenuResult;
+    temp = state.persistedReducer.menu.menu.find(
+      (menuItem) => menuItem.Id === id
+    ) as MenuResult;
     id = temp?.ParentId;
     menuParents.push(temp);
   }
