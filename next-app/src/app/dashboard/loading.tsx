@@ -1,4 +1,3 @@
-import Card from "../ui/Card";
 import Skeleton from "./components/Skeleton";
 
 export default function Loading() {

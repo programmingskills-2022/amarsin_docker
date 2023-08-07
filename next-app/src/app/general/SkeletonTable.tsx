@@ -2,24 +2,118 @@ import React from "react";
 
 const SkeletonTable: React.FC = () => {
   return (
-    <table className="min-w-full divide-y divide-gray-200">
-      <thead>
-        <tr>
-          <th className="py-3 px-6 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-          <th className="py-3 px-6 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-          <th className="py-3 px-6 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-gray-200">
-        {[...Array(5)].map((_, index) => (
-          <tr key={index}>
-            <td className="py-4 px-6 bg-white"></td>
-            <td className="py-4 px-6 bg-white"></td>
-            <td className="py-4 px-6 bg-white"></td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="border border-blue-300/50 shadow rounded-md p-4 max-w-sm md:max-w-2xl w-full mx-auto">
+      <div className="animate-pulse flex space-x-4">
+        <div className="flex-1 space-y-6 py-1">
+          <div className="h-2 bg-slate-300 rounded"></div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+        </div>
+        <div className="flex-1 space-y-6 py-1">
+          <div className="h-2 bg-slate-300 rounded"></div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+        </div>
+        <div className="flex-1 space-y-6 py-1">
+          <div className="h-2 bg-slate-300 rounded"></div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+        </div>
+        <div className="flex-1 space-y-6 py-1">
+          <div className="h-2 bg-slate-300 rounded"></div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4">
+              <div className="h-2 bg-slate-300 rounded col-span-2"></div>
+              <div className="h-2 bg-slate-300 rounded col-span-1"></div>
+            </div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+            <div className="h-2 bg-slate-300 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
