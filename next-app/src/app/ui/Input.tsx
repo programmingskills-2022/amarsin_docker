@@ -15,7 +15,8 @@ type Props = {
   setInputName: Dispatch<SetStateAction<string>>;
   type: string;
   autofocus: boolean;
-  icon: ReactElement;
+  icon: ReactElement | string;
+  disabled: boolean;
 };
 
 export default function Input({
@@ -25,6 +26,7 @@ export default function Input({
   type,
   autofocus,
   icon,
+  disabled = false,
 }: Props) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -58,17 +60,17 @@ export default function Input({
       <div className="relative w-full">
         <label
           id={labelName}
-          className={`absolute right-4 top-1/2 -translate-y-1/2 dark:autofill:text-white/50 autofill:text-slate-500 text-md duration-300 group-focus-within:-top-2 group-focus-within:text-[10px]
-          `}
+          className={`absolute right-4 top-1/2 -translate-y-1/2 text-md duration-300 group-focus-within:-top-2 group-focus-within:text-[10px]`}
           htmlFor={labelName}
         >
           {labelName}
         </label>
         <input
-          className={`absolute w-full h-full top-0 right-0 border-none p-4 text-xl bg-transparent  dark:text-white text-slate-800 outline-none peer`}
+          className={`absolute border-none focus:border-none w-full h-full top-0 right-0 p-4 text-xl bg-transparent  dark:text-white text-slate-800 outline-none peer`}
           id={labelName}
           type={type === "password" && isPasswordVisible ? "text" : type}
           autoFocus={autofocus}
+          disabled={disabled}
           onChange={changeInputHandle}
         />
         {type === "password" && (

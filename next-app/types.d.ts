@@ -6,11 +6,7 @@ type Meta = {
 };
 
 type Login = {
-  Meta: {
-    errorCode: number;
-    message: string;
-    type: string;
-  };
+  Meta: Meta;
   Data: {
     result: {
       userId: number;
@@ -60,4 +56,43 @@ type Menu = {
 type MenuItem = {
   menuResult: MenuResult;
   children?: MenuItem[];
+};
+
+type CupboardData = {
+  Id: number;
+  Code: string;
+  FullCode: string;
+  FullName: string;
+  ProdDate: string;
+  ExpDate: string;
+  GTIN: string;
+  IRC: string;
+  UID: string;
+  Tmp: number;
+  Inc: number;
+  Outc: number;
+  Stck: number;
+  Status: number;
+};
+
+type Cupboard = {
+  Meta: Meta;
+  Data: {
+    result: CupboardData[];
+  };
+};
+
+type FinancialYear_SystemData = {
+  Id: number;
+  Name: string;
+};
+
+type FinancialYear_System = {
+  Meta;
+  Data: {
+    result: {
+      total_count: number;
+      SearchResults: FinancialYear_SystemData[];
+    };
+  };
 };

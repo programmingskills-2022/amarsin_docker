@@ -1,14 +1,11 @@
 import { useContext } from "react";
 import { RootState } from "./index";
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GeneralContext } from "@/app/contexts/GeneralContext";
-import { useAppSelector } from "./hooks";
-import { selectLoginData } from "./login";
-import { PURGE } from "redux-persist";
 
 export interface MenuState {
   loading: boolean;
-  menu: Array<MenuResult>;
+  menu: MenuResult[];
   error: string | undefined;
 }
 const initialState: MenuState = {
@@ -35,28 +32,11 @@ export const fetchMenu = createAsyncThunk("menu/fetchMenu", async () => {
 const menuSlice = createSlice({
   name: "menu",
   initialState,
-  extraReducers: (builder) => {
-    builder.addCase(fetchMenu.pending, (state) => {
-      state.loading = true;
-    });
-
-    builder.addCase(
-      fetchMenu.fulfilled,
-      (state, action: PayloadAction<Array<MenuResult>>) => {
-        state.loading = false;
-        state.menu = action.payload;
-      }
-    );
-    builder.addCase(fetchMenu.rejected, (state, action) => {
-      state.loading = false;
-      state.menu = [];
-      state.error = action.error.message;
-    }),
-      builder.addCase(PURGE, () => {
-        return initialState;
-      });
+  reducers: {
+    saveMenu(state, action) {
+      state.menu = action.payload;
+    },
   },
-  reducers: {},
 });
 export const selectMenuAll = (state: RootState) => state.persistedReducer.menu;
 
@@ -127,4 +107,5 @@ export function createMenu(menuItems: MenuResult[], parentId = 0): MenuItem[] {
   return result;
 }
 
+export const { saveMenu } = menuSlice.actions;
 export default menuSlice.reducer;

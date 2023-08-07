@@ -5,30 +5,23 @@ import ThemeToggler from "@/app/general/ThemeToggler";
 import IconlyArrowDown from "@/app/svg/IconlyArrowDown";
 import IconlyUser from "@/app/svg/IconlyUser";
 import { useContext, useEffect, useRef } from "react";
-import DropdownMenu from "@/app/ui/DropdownMenu";
-import DropdownMenuItem from "@/app/ui/DropdownMenuItem";
-import IconlyProfile from "@/app/svg/IconlyProfile";
-import IconlyExit from "@/app/svg/IconlyExit";
-import { notFound } from "next/navigation";
 import Logo from "./header/Logo";
 import ProfileMenu from "./header/ProfileMenu";
 import IconlyArrowUp from "@/app/svg/IconlyArrowUp";
 import { selectLoginData } from "@/app/redux/login";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hooks";
-import { fetchMenu, selectMenuAll } from "@/app/redux/menu";
+import Input2 from "@/app/ui/Input2";
+import SystemsAndFinancialYears from "./header/SystemsAndFinancialYears";
 
 export default function Header() {
-  let { login, showProfileMenu, setShowProfileMenu, toggleProfileMenu } =
+  let { showProfileMenu, setShowProfileMenu, toggleProfileMenu } =
     useContext(GeneralContext);
 
-  //for refresh page
-  if (!login.Data) {
-    login = JSON.parse(window.localStorage.getItem("login") as string);
-  }
+  let login = useAppSelector(selectLoginData);
 
   if (login?.Data === undefined) return undefined;
 
-  const { FName, LName, userId } = login.Data?.result;
+  const { FName, LName } = login.Data?.result;
   const dropdown = useRef<HTMLDivElement>(null);
   const refButton = useRef<HTMLButtonElement>(null);
 
@@ -53,9 +46,12 @@ export default function Header() {
   }, [setShowProfileMenu, showProfileMenu]);
 
   return (
-    <header className="sticky top-0 border-b-2 dark:bg-slate-600 bg-slate-100 flex justify-between items-center dark:text-white text-slate-800 text-2xl ">
+    <header className="sticky top-0 z-10 border-b-2 dark:bg-slate-600 bg-slate-100 flex justify-between items-center dark:text-white text-slate-800 text-2xl ">
+      {/* right  */}
       <Logo />
+      <SystemsAndFinancialYears />
 
+      {/* left */}
       <div className="relative flex gap-1">
         <button
           className={`flex items-center justify-center focus:outline-none   ${

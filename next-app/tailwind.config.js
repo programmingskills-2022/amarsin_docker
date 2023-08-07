@@ -13,7 +13,16 @@ module.exports = {
         },
       },
       fontFamily: {
-        vazir: ["Vazir"],
+        sans: ["var(--font-vazir)"],
+      },
+      keyframes: {
+        "open-menu": {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
+      },
+      animation: {
+        "open-menu": "open-menu 0.4s ease-in-out forwards ",
       },
     },
   },

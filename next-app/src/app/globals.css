@@ -14,11 +14,6 @@
   @apply w-[calc(100vw-12rem)];
 }
 
-@font-face {
-  font-family: Vazir;
-  src: url("/public/fonts/Vazir-Medium-FD-WOL.ttf") format("truetype");
-}
-
 @layer utilities {
   @variants responsive {
     /* Hide scrollbar for Chrome, Safari and Opera */
@@ -34,10 +29,10 @@
   }
 }
 
-input:-webkit-autofill,
+/* input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-background-clip: text;
-}
+} */

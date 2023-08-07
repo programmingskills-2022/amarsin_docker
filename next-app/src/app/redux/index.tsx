@@ -35,7 +35,7 @@ interface ReduxProviderProps {
   children: ReactNode;
 }
 export function ReduxProvider({ children }: ReduxProviderProps) {
-  store.dispatch(fetchMenu());
+  //store.dispatch(fetchMenu());
 
   return (
     <Provider store={store}>

@@ -1,20 +1,32 @@
 import Node from "./Node";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import IconlyArrowDown from "@/app/svg/IconlyArrowDown";
 import IconlyArrowUp from "@/app/svg/IconlyArrowUp";
 import IconlyWork from "@/app/svg/IconlyWork";
 import IconlyTickSquare from "@/app/svg/IconlyTickSquare";
 import IconlyDocument from "@/app/svg/IconlyDocument";
+import { GeneralContext } from "@/app/contexts/GeneralContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
   node: MenuItem;
   level: number;
   search: string;
+  initialOpen: boolean;
 };
 
-export default function TreeNode({ node, level = 0, search = "" }: Props) {
+export default function TreeNode({
+  node,
+  level = 0,
+  search = "",
+  initialOpen,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false); // Track if the node is open or closed
+  const { setShowMenu, expandAllMenu, setExpandAllMenu } =
+    useContext(GeneralContext);
   const [isDownArrow, setIsDownArrow] = useState(true);
+  const router = useRouter();
 
   // Check if the current node has children
   const hasChildren = node.children && node.children.length > 0;
@@ -23,6 +35,11 @@ export default function TreeNode({ node, level = 0, search = "" }: Props) {
   const toggleOpen = () => {
     setIsOpen(!isOpen);
     setIsDownArrow(!isDownArrow);
+  };
+
+  const navToMenuPath = (path: string) => {
+    router.push(path);
+    setShowMenu((prev) => false);
   };
 
   // Check if the node matches the search string
@@ -63,6 +80,7 @@ export default function TreeNode({ node, level = 0, search = "" }: Props) {
           ))
         }
         arrowIcon={
+          !expandAllMenu &&
           hasChildren &&
           (isDownArrow ? (
             <IconlyArrowDown className="h-4 w-4" />
@@ -71,7 +89,7 @@ export default function TreeNode({ node, level = 0, search = "" }: Props) {
           ))
         }
         iconName={`${node.menuResult.Name}`}
-        className={` pl-2 ${
+        className={`pl-2 ${
           level === 0
             ? "bg-indigo-900 pr-2"
             : level === 1
@@ -81,15 +99,22 @@ export default function TreeNode({ node, level = 0, search = "" }: Props) {
             : level === 3
             ? "bg-indigo-600 pr-8"
             : "bg-indigo-500 pr-10"
-        } `}
-        onClick={toggleOpen}
+        } ${!isMatch && "hidden"}`}
+        //navigate to path in menu leaf
+        onClick={
+          hasChildren ? toggleOpen : () => navToMenuPath(node.menuResult.Path)
+        }
       />
-      {isOpen &&
-        hasChildren &&
+      {(expandAllMenu || (isOpen && hasChildren)) &&
         node.children?.map((child) => {
           return (
             <li key={child.menuResult.Id}>
-              <TreeNode node={child} level={level + 1} search={search} />
+              <TreeNode
+                node={child}
+                level={level + 1}
+                search={search}
+                initialOpen={isOpen}
+              />
             </li>
           );
         })}
