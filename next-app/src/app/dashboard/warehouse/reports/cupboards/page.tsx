@@ -9,7 +9,12 @@ export default function CupboardsRep() {
   const [err, setErr] = useState(false);
   const [errId, setErrId] = useState(0);
 
-  const { windowWidth, setWindowWidth } = useContext(GeneralContext);
+  const { setMenuName, windowWidth, setWindowWidth } =
+    useContext(GeneralContext);
+
+  useEffect(() => {
+    setMenuName("گزارش بچ ها");
+  }, []);
 
   useEffect(() => {
     const updateWindowWidth = () => {
